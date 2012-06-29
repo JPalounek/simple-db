@@ -5,7 +5,7 @@ Is small and easy to use key-value database with simple API.
 **API**
 
 *Read*
-/get/<key>/
+/load/<key>/
 Returns JSON with value in "value" key.
 
 *Write*

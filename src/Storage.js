@@ -5,7 +5,11 @@ var Storage = function () {};
 Storage.prototype.getStorage = function(name, cb) {
 	fs.readFile('data/' + name + '.json', function (err, data) {
 		if (err) throw err;
-		cb(JSON.parse(data));
+		if(data != '') {
+			cb(JSON.parse(data));
+		} else {
+			cb();
+		}
 	});
 };
 
@@ -17,11 +21,16 @@ Storage.prototype.saveStorage = function(name, data, done) {
 };
 
 Storage.prototype.save = function(storage, data, cb) {
-	this.getStorage(storage, function (data) {
-		data.push(data);
+	this.getStorage(storage, function (item) {
+		if(typeof item == 'undefined') {
+			item = new Array();
+			item.push(data);
+		} else {
+			item.push(data);
+		}
 
 		console.log('Saving ' + data.key + ' -> ' + data.val + ' to ' + storage);
-		this.saveStorage(storage, data, function () {
+		Storage.prototype.saveStorage(storage, item, function () {
 			cb('Saving ' + data.key + ' -> ' + data.val + ' to ' + storage);
 		});
 	});
