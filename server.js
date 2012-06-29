@@ -17,8 +17,8 @@ app.get('/', function(req, res) {
 app.get('/save/:key/:value', function(req, res) {
 	var params = req.route.params;
 
-	Security.isRequestSafe(req, function (res) {
-		if(res == true) {
+	Security.isRequestSafe(req, function (result) {
+		if(result == true) {
 			var data = {};
 			data.key = params.key;
 			data.val = params.value;
