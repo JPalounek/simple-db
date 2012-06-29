@@ -19,4 +19,4 @@ Storage.prototype.load = function(storage, key) {
 	});
 };
 
-module.exports = Fusion;
+module.exports = Storage;

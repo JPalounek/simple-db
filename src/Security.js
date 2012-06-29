@@ -7,4 +7,4 @@ Security.prototype.isRequestSecure = function(req, cb) {
 	cb(true);
 };
 
-module.exports = Fusion;
+module.exports = Security;

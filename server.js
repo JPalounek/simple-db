@@ -17,12 +17,11 @@ app.get('/save/:key/:value', function(req, res) {
 	Security.isRequestSecure(req, function (res) {
 		if(res == true) {
 			res.send();
-   			res.end;
 		} else {
 			res.send();
-   			res.end;
 		}
-		
+
+		res.end;
 	});
 });
 
