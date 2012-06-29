@@ -6,6 +6,9 @@ var Security = require('./src/Security.js');
 
 var app = express.createServer();
 
+Security = new Security();
+Storage = new Storage();
+
 app.get('/', function(req, res) {
 	res.send('Simple-db is simple key value storage with friendly API, using JSON storage file and nodejs.');
 	res.end;
@@ -14,11 +17,17 @@ app.get('/', function(req, res) {
 app.get('/save/:key/:value', function(req, res) {
 	var params = req.route.params;
 
-	Security.isRequestSecure(req, function (res) {
+	Security.isRequestSafe(req, function (res) {
 		if(res == true) {
-			res.send();
+			var data = {};
+			data.key = params.key;
+			data.val = params.value;
+
+			Storage.save('storage', data, function (result) {
+				res.send(result);
+			});
 		} else {
-			res.send();
+			res.send('Your request was identified as attack, stop it please.');
 		}
 
 		res.end;
@@ -28,8 +37,17 @@ app.get('/save/:key/:value', function(req, res) {
 app.get('/load/:key', function(req, res) {
 	var params = req.route.params;
 
-	res.send();
-   	res.end;
+	Security.isRequestSafe(req, function (result) {
+		if(result == true) {
+			Storage.load('storage', params.key, function (result) {
+				res.send(result);
+			});
+		} else {
+			res.send('Your request was identified as attack, stop it please.');
+		}
+
+		res.end;
+	});
 });
 
 var port = process.env.PORT || 5000;
