@@ -1,15 +1,15 @@
-*** SimpleDb ***
+# SimpleDb
 
 Is small and easy to use key-value database with simple API.
 
 **API**
 
 *Read*
-/load/<key>/
+/load/{key}/
 Returns JSON with value in "value" key.
 
 *Write*
-/save/<key>/<value>/
+/save/{key}/{value}/
 Returns JSON with response in "result" key - error (described in "description" key) or done (with no more description).
 
 **Todos**
